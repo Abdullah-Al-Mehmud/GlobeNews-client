@@ -20,7 +20,7 @@ const Navbar = () => {
             isPending
               ? "pending"
               : isActive
-              ? "text-blue-500 underline shadow-lg"
+              ? "text-main-blue-500 underline "
               : ""
           }>
           Add Articles
@@ -30,7 +30,7 @@ const Navbar = () => {
         <NavLink
           to="/allArticles"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-blue-500  " : ""
+            isPending ? "pending" : isActive ? "text-main-blue-500 " : ""
           }>
           All Articles
         </NavLink>
@@ -89,8 +89,12 @@ const Navbar = () => {
           <ul className="flex gap-5 cursor-pointer">{links}</ul>
         </div>
         <div className="navbar-end gap-5">
-          <Button title="Login"></Button>
-          <Button title="Register"></Button>
+          <Link to="/login">
+            <Button title={`login`}></Button>
+          </Link>
+          <Link>
+            <Button title={`Register`}></Button>
+          </Link>
         </div>
       </div>
     </div>
