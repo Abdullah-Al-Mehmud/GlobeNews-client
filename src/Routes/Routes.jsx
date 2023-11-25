@@ -7,6 +7,7 @@ import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../Pages/Profile/Profile";
 import AllArticles from "../Pages/AllArticles/AllArticles";
+import ArticlesDetails from "../Pages/AllArticles/ArticlesDetails/ArticlesDetails";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,16 @@ const router = createBrowserRouter([
             <AllArticles></AllArticles>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/allArticles/:id",
+        element: (
+          <PrivateRoute>
+            <ArticlesDetails></ArticlesDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/articles/${params.id}`),
       },
       {
         path: "/profile",

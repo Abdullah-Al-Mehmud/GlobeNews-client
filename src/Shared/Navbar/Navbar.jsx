@@ -12,7 +12,7 @@ const Navbar = () => {
         <NavLink
           to="/"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-blue-500  " : ""
+            isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
           }>
           Home
         </NavLink>
@@ -21,7 +21,7 @@ const Navbar = () => {
         <NavLink
           to="/dashboard/adminHome"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-blue-500  " : ""
+            isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
           }>
           Dashboard
         </NavLink>
@@ -32,11 +32,7 @@ const Navbar = () => {
             <NavLink
               to="/addArticles"
               className={({ isActive, isPending }) =>
-                isPending
-                  ? "pending"
-                  : isActive
-                  ? "text-main-blue-500 underline "
-                  : ""
+                isPending ? "pending" : isActive ? "text-main-blue-500  " : ""
               }>
               Add Articles
             </NavLink>
@@ -54,7 +50,7 @@ const Navbar = () => {
             <NavLink
               to="/subscription"
               className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-blue-500  " : ""
+                isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
               }>
               Subscription
             </NavLink>
@@ -63,7 +59,7 @@ const Navbar = () => {
             <NavLink
               to="/myArticles"
               className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-blue-500  " : ""
+                isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
               }>
               My Articles
             </NavLink>

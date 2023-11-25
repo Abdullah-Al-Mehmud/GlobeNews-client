@@ -12,6 +12,6 @@ const Button = ({ title }) => {
   );
 };
 Button.propTypes = {
-  title: PropTypes.object,
+  title: PropTypes.string,
 };
 export default Button;
