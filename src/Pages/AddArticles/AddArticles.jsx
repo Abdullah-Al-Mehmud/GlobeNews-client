@@ -6,6 +6,8 @@ import Select from "react-select";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -22,6 +24,9 @@ const AddArticles = () => {
     { value: "#EntertainmentNews", label: "#EntertainmentNews" },
     { value: "#Sports", label: "#Sports" },
   ];
+
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   const axiosPublic = useAxiosPublic();
   const { register, handleSubmit, setValue, reset } = useForm();
@@ -44,7 +49,11 @@ const AddArticles = () => {
           hashtags: data.hashtags?.map((tag) => tag?.value),
           description: data.description,
           image: res?.data?.data?.display_url,
-          status: "inactive",
+          status: "active",
+          subscription: "local",
+          authorName: user?.displayName,
+          authorEmail: user?.email,
+          authorImage: user?.photoURL,
         };
         axios
           .post("http://localhost:3000/articles", articles)

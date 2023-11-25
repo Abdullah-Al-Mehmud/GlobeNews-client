@@ -17,8 +17,17 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
+      <li className="font-bold">
+        <NavLink
+          to="/dashboard/adminHome"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "text-blue-500  " : ""
+          }>
+          Dashboard
+        </NavLink>
+      </li>
       {user ? (
-        <div className="flex gap-5">
+        <div className="lg:flex gap-5">
           <li className="font-bold">
             <NavLink
               to="/addArticles"
