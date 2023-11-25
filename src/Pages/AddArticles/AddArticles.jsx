@@ -1,5 +1,5 @@
 import Lottie from "react-lottie";
-import animationData from "../../assets/images/Animation - 1700835257130.json";
+import animationData from "../../assets/images/addArticle.json";
 
 import { useForm } from "react-hook-form";
 import Select from "react-select";
@@ -14,12 +14,13 @@ const AddArticles = () => {
     { value: "#News", label: "#News" },
     { value: "#BreakingNews", label: "#BreakingNews" },
     { value: "#Headlines", label: "#Headlines" },
-    { value: "#CurrentEvents", label: "#CurrentEvents" },
+    { value: "#Business", label: "#Business" },
     { value: "#Politics", label: "#Politics" },
-    { value: "#Elections", label: "#Elections" },
+    { value: "#Science", label: "#Science" },
     { value: "#HealthNews", label: "#HealthNews" },
     { value: "#Wellness", label: "#Wellness" },
     { value: "#EntertainmentNews", label: "#EntertainmentNews" },
+    { value: "#Sports", label: "#Sports" },
   ];
 
   const axiosPublic = useAxiosPublic();
@@ -45,9 +46,20 @@ const AddArticles = () => {
           image: res?.data?.data?.display_url,
           status: "inactive",
         };
-        axios.post("http://localhost:3000/articles", articles).then((res) => {
-          console.log(res);
-        });
+        axios
+          .post("http://localhost:3000/articles", articles)
+          .then((result) => {
+            if (result.data.success) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Article has been added",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              reset();
+            }
+          });
       });
 
     // console.log(res.data);
@@ -76,14 +88,10 @@ const AddArticles = () => {
     // }
   };
   return (
-    <div className="flex justify-center px-10 items-center ">
+    <div className="md:flex justify-center px-10 items-center ">
       {/* img */}
       <div className="w-full">
-        <Lottie
-          options={{ loop: true, autoplay: true, animationData }}
-          height={450}
-          width={450}
-        />
+        <Lottie options={{ loop: true, autoplay: true, animationData }} />
       </div>
       {/* form */}
       <div className="w-full">
@@ -103,14 +111,15 @@ const AddArticles = () => {
                 {...register("publisher", { required: true })}
                 className="select select-bordered border-2 border-main-blue-300 rounded-lg w-full ">
                 <option disabled defaultValue>
-                  Choose Brand
+                  Choose Publisher
                 </option>
-                <option>BMW</option>
-                <option>Mercedes-Benz</option>
-                <option>Audi</option>
-                <option>Jaguar</option>
-                <option>Toyota</option>
-                <option>Chevrolet</option>
+                <option>Business Insights</option>
+                <option>Green Horizon</option>
+                <option>Political Spectrum</option>
+                <option>Healthy Living</option>
+                <option>Scientific Endeavors</option>
+                <option>Global Insight</option>
+                <option>Sports Chronicles</option>
               </select>
             </div>
           </div>
@@ -154,7 +163,7 @@ const AddArticles = () => {
             <input
               type="submit"
               value="Add Article"
-              className="btn bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]  text-[white] text-lg font-bold btn-block"
+              className="btn mb-10 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]  text-[white] text-lg font-bold btn-block"
             />
           </div>
         </form>

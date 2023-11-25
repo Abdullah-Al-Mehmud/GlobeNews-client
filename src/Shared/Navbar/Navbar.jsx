@@ -1,7 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import Button from "../../Components/Button";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import defaultProfile from "../../assets/images/user.png";
 
 const Navbar = () => {
+  const { user, logOutUser } = useContext(AuthContext);
   const links = (
     <>
       <li className="font-bold">
@@ -13,48 +17,60 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li className="font-bold">
-        <NavLink
-          to="/addArticles"
-          className={({ isActive, isPending }) =>
-            isPending
-              ? "pending"
-              : isActive
-              ? "text-main-blue-500 underline "
-              : ""
-          }>
-          Add Articles
-        </NavLink>
-      </li>
-      <li className="font-bold">
-        <NavLink
-          to="/allArticles"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-main-blue-500 " : ""
-          }>
-          All Articles
-        </NavLink>
-      </li>
-      <li className="font-bold">
-        <NavLink
-          to="/subscription"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-blue-500  " : ""
-          }>
-          Subscription
-        </NavLink>
-      </li>
-      <li className="font-bold">
-        <NavLink
-          to="/myArticles"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-blue-500  " : ""
-          }>
-          My Articles
-        </NavLink>
-      </li>
+      {user ? (
+        <div className="flex gap-5">
+          <li className="font-bold">
+            <NavLink
+              to="/addArticles"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "text-main-blue-500 underline "
+                  : ""
+              }>
+              Add Articles
+            </NavLink>
+          </li>
+          <li className="font-bold">
+            <NavLink
+              to="/allArticles"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-main-blue-500 " : ""
+              }>
+              All Articles
+            </NavLink>
+          </li>
+          <li className="font-bold">
+            <NavLink
+              to="/subscription"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-blue-500  " : ""
+              }>
+              Subscription
+            </NavLink>
+          </li>
+          <li className="font-bold">
+            <NavLink
+              to="/myArticles"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-blue-500  " : ""
+              }>
+              My Articles
+            </NavLink>
+          </li>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
+
+  const handleLogOut = () => {
+    logOutUser().then().catch();
+  };
+
+  // console.log(user);
   return (
     <div>
       <div className="navbar lg:px-16  h-20 mb-5">
@@ -89,12 +105,43 @@ const Navbar = () => {
           <ul className="flex gap-5 cursor-pointer">{links}</ul>
         </div>
         <div className="navbar-end gap-5">
-          <Link to="/login">
-            <Button title={`login`}></Button>
-          </Link>
-          <Link>
-            <Button title={`Register`}></Button>
-          </Link>
+          {user ? (
+            <div className="dropdown dropdown-end ">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={user ? user?.photoURL : defaultProfile}
+                  />
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                  <a className="justify-between ">{user?.displayName}</a>
+                </li>
+                <li>
+                  <Link to="/profile" className="justify-between">
+                    Profile
+                  </Link>
+                </li>
+
+                <li>
+                  <a onClick={handleLogOut}>Logout</a>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="flex gap-5">
+              <Link to="/login">
+                <Button title={`Login`}></Button>
+              </Link>
+              <Link to="/register">
+                <Button title={`Register`}></Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>
