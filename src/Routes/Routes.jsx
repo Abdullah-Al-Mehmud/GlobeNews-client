@@ -9,11 +9,14 @@ import Profile from "../Pages/Profile/Profile";
 import AllArticles from "../Pages/AllArticles/AllArticles";
 import ArticlesDetails from "../Pages/AllArticles/ArticlesDetails/ArticlesDetails";
 import MyArticles from "../Pages/MyArticles/MyArticles";
+import ErrorPage from "../Pages/404NotFound/ErrorPage";
+import UpdateArticle from "../Pages/MyArticles/UpdateArticle";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -50,6 +53,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyArticles></MyArticles>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/updateArticle/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateArticle></UpdateArticle>
           </PrivateRoute>
         ),
       },

@@ -8,12 +8,27 @@ import premiumImg from "../../assets/images/premium.png";
 import { useState } from "react";
 
 const AllArticles = () => {
+  const tagsData = [
+    { value: "#News", label: "#News" },
+    { value: "#BreakingNews", label: "#BreakingNews" },
+    { value: "#Headlines", label: "#Headlines" },
+    { value: "#Business", label: "#Business" },
+    { value: "#Politics", label: "#Politics" },
+    { value: "#Science", label: "#Science" },
+    { value: "#HealthNews", label: "#HealthNews" },
+    { value: "#Wellness", label: "#Wellness" },
+    { value: "#EntertainmentNews", label: "#EntertainmentNews" },
+    { value: "#Sports", label: "#Sports" },
+  ];
   const [search, setSearch] = useState("");
+  const [tags, setTags] = useState("");
   const axiosPublic = useAxiosPublic();
   const { data: articles = [], refetch } = useQuery({
     queryKey: ["articles"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/articles?search=${search}`);
+      const res = await axiosPublic.get(
+        `/articles?search=${search}&tags=${tags}`
+      );
       return res.data;
     },
   });
@@ -21,8 +36,6 @@ const AllArticles = () => {
   const handleSearch = (e) => {
     e.preventDefault();
 
-    const searchText = e.target.search.value;
-    setSearch(searchText);
     refetch();
   };
 
@@ -34,6 +47,7 @@ const AllArticles = () => {
         <input
           type="text"
           name="search"
+          onChange={(e) => setSearch(e.target.value)}
           className="w-72 relative text-main-blue-950 rounded-lg pl-5 py-1 font-bold border-2 border-[#4984e8] border-r-none focus:border-[#4984e8] outline-none"
           placeholder="Search Here..."
           required=""
@@ -44,6 +58,23 @@ const AllArticles = () => {
           Search
         </button>
       </form>
+      <div>
+        <div className="w-80">
+          <select
+            onChange={(e) => setTags(e.target.value)}
+            value={tags}
+            className="select select-bordered border-2 border-main-blue-300 rounded-lg w-full ">
+            <option disabled defaultValue>
+              Choose Publisher
+            </option>
+            {tagsData?.map((item, idx) => (
+              <option key={idx} value={item?.value}>
+                {item?.value}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 max-w-7xl lg:px-0 px-10 mx-auto">
         {articles?.map((item, idx) => (
           <div

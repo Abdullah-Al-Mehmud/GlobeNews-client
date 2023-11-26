@@ -7,7 +7,8 @@ import Swal from "sweetalert2";
 
 const Login = () => {
   const [show, setShow] = useState(true);
-  const { loginUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const { loginUser, googleLoginUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -30,7 +31,24 @@ const Login = () => {
         });
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError(err.code);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLoginUser()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch();
   };
   return (
     <div className=" bg-[#160938] py-20 flex h-auto items-center">
@@ -110,19 +128,20 @@ const Login = () => {
                 Login account
               </button>
               <div>
-                {/* {error ? <p className="font-bold text-red-600">{error}</p> : ""} */}
+                {error ? (
+                  <p className="font-bold text-[#ff2b2b]">{error}</p>
+                ) : (
+                  ""
+                )}
               </div>
               {/* google login */}
               <div>
-                {/* <p className="text-center text-main-blue-950 font-bold">
-                  
-                </p> */}
                 <div className="divider text-center text-main-blue-950 font-bold">
                   Also Login With
                 </div>
                 <div className="flex mt-4 justify-center">
                   <img
-                    // onClick={handleGoogleRegister}
+                    onClick={handleGoogleLogin}
                     className="h-10 cursor-pointer"
                     src={googlePic}
                     alt=""

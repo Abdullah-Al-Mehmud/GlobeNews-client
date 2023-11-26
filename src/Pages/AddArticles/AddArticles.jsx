@@ -70,31 +70,6 @@ const AddArticles = () => {
             }
           });
       });
-
-    // console.log(res.data);
-    // if (res?.data?.success) {
-    //   const articles = {
-    //     title: data.title,
-    //     publisher: data.publisher,
-    //     hashtags: data.hashtags?.map((tag) => tag?.value),
-    //     description: data.description,
-    //     image: res?.data?.data?.display_url,
-    //     status: "inactive",
-    //   };
-    //   // console.log(articles);
-    //   const articleRes = await axiosPublic.post("/articles", articles);
-    //   // console.log(articleRes.data);
-    //   if (articleRes?.data?.insertedId) {
-    //     Swal.fire({
-    //       position: "center",
-    //       icon: "success",
-    //       title: "Article has been added",
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     reset();
-    //   }
-    // }
   };
   return (
     <div className="md:flex justify-center px-10 items-center ">
