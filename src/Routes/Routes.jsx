@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import Profile from "../Pages/Profile/Profile";
 import AllArticles from "../Pages/AllArticles/AllArticles";
 import ArticlesDetails from "../Pages/AllArticles/ArticlesDetails/ArticlesDetails";
+import MyArticles from "../Pages/MyArticles/MyArticles";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/articles/${params.id}`),
+      },
+      {
+        path: "/myArticles",
+        element: (
+          <PrivateRoute>
+            <MyArticles></MyArticles>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",

@@ -28,6 +28,7 @@ const Register = () => {
       .then((res) => {
         console.log(res.user);
         updateUser(name, image).then().catch();
+        //TODO: i have to send the user data to database along with isPremium
         Swal.fire({
           position: "center",
           icon: "success",
