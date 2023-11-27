@@ -11,6 +11,8 @@ import ArticlesDetails from "../Pages/AllArticles/ArticlesDetails/ArticlesDetail
 import MyArticles from "../Pages/MyArticles/MyArticles";
 import ErrorPage from "../Pages/404NotFound/ErrorPage";
 import UpdateArticle from "../Pages/MyArticles/UpdateArticle";
+import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
+import Dashboard from "../Layout/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,16 @@ const router = createBrowserRouter([
             <UpdateArticle></UpdateArticle>
           </PrivateRoute>
         ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/articles/${params.id}`),
+      },
+      {
+        path: "/premiumArticles",
+        element: (
+          <PrivateRoute>
+            <PremiumArticles></PremiumArticles>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
@@ -77,6 +89,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register></Register>,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
   },
 ]);
 

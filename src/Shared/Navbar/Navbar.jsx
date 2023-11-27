@@ -19,7 +19,7 @@ const Navbar = () => {
       </li>
       <li className="font-bold">
         <NavLink
-          to="/dashboard/adminHome"
+          to="/dashboard"
           className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
           }>
@@ -53,6 +53,15 @@ const Navbar = () => {
                 isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
               }>
               Subscription
+            </NavLink>
+          </li>
+          <li className="font-bold">
+            <NavLink
+              to="/premiumArticles"
+              className={({ isActive, isPending }) =>
+                isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
+              }>
+              Premium Articles
             </NavLink>
           </li>
           <li className="font-bold">

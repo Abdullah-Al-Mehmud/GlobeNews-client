@@ -9,23 +9,25 @@ import { useState } from "react";
 
 const AllArticles = () => {
   const tagsData = [
-    { value: "#News", label: "#News" },
-    { value: "#BreakingNews", label: "#BreakingNews" },
-    { value: "#Headlines", label: "#Headlines" },
-    { value: "#Business", label: "#Business" },
-    { value: "#Politics", label: "#Politics" },
-    { value: "#Science", label: "#Science" },
-    { value: "#HealthNews", label: "#HealthNews" },
-    { value: "#Wellness", label: "#Wellness" },
-    { value: "#EntertainmentNews", label: "#EntertainmentNews" },
-    { value: "#Sports", label: "#Sports" },
+    { value: "News", label: "#News" },
+    { value: "BreakingNews", label: "#BreakingNews" },
+    { value: "Headlines", label: "#Headlines" },
+    { value: "Business", label: "#Business" },
+    { value: "Politics", label: "#Politics" },
+    { value: "Science", label: "#Science" },
+    { value: "HealthNews", label: "#HealthNews" },
+    { value: "Wellness", label: "#Wellness" },
+    { value: "EntertainmentNews", label: "#EntertainmentNews" },
+    { value: "Sports", label: "#Sports" },
   ];
   const [search, setSearch] = useState("");
   const [tags, setTags] = useState("");
+
   const axiosPublic = useAxiosPublic();
   const { data: articles = [], refetch } = useQuery({
     queryKey: ["articles"],
     queryFn: async () => {
+      console.log("30", tags);
       const res = await axiosPublic.get(
         `/articles?search=${search}&tags=${tags}`
       );
@@ -38,6 +40,11 @@ const AllArticles = () => {
 
     refetch();
   };
+  // const handleChange = (e) => {
+  //   fetch(`http://localhost:3000/articles?tags=Politics`)
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
+  // };
 
   return (
     <div>

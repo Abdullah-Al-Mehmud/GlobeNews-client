@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Button from "../../Components/Button";
-import { updateProfile } from "firebase/auth";
-import auth from "../../Firebase/firebase.config";
 
 const Profile = () => {
   const { user, updateUser } = useContext(AuthContext);
