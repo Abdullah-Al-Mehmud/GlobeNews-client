@@ -13,6 +13,7 @@ import ErrorPage from "../Pages/404NotFound/ErrorPage";
 import UpdateArticle from "../Pages/MyArticles/UpdateArticle";
 import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 import Dashboard from "../Layout/Dashboard/Dashboard";
+import AllArticlesAdmin from "../Pages/DashboardPage/AllArticles/AllArticlesAdmin";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "allArticles",
+        element: <AllArticlesAdmin></AllArticlesAdmin>,
+      },
+    ],
   },
 ]);
 

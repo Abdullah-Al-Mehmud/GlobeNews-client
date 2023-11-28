@@ -35,6 +35,8 @@ const AllArticles = () => {
     },
   });
 
+  // console.log(articles);
+
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -131,8 +133,15 @@ const AllArticles = () => {
                     ? "text-main-blue-50"
                     : "text-[#100d2c]"
                 } `}>
-                {item?.hashtags?.map((t, index) => (
-                  <p key={index}>{t}</p>
+                {/* {item?.hashtags?.map((tag) => (
+                  <h1>{tag.value}</h1>
+                ))} */}
+                {/* {item?.hashtags?.map((t) => (
+                  <span>{t.value}</span>
+                ))} */}
+                {/* {item?.hashtags?.join(" ")} */}
+                {item?.hashtags?.map((tag, idx) => (
+                  <p key={idx}>{tag}</p>
                 ))}
               </span>
 

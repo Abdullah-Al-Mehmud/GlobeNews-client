@@ -1,11 +1,13 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
+import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const UpdateArticle = () => {
+  const navigate = useNavigate();
   const tagsData = [
     { value: "#News", label: "#News" },
     { value: "#BreakingNews", label: "#BreakingNews" },
@@ -37,15 +39,22 @@ const UpdateArticle = () => {
     const articles = {
       title: data.title,
       publisher: data.publisher,
-      hashtags: data.hashtags,
+      hashtags: data.hashtags?.map((tag) => tag?.value),
       description: data.description,
     };
     if (imageFile.image) {
       articles.image = res?.data?.data?.display_url;
     }
     const articleRes = await axiosPublic.put(`/articles/${_id}`, articles);
-    if (articleRes.data.success) {
-      console.log("success");
+    if (articleRes.data) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate("/myArticles");
     }
   };
   const transformedTags = hashtags.map((tag) => ({ value: tag, label: tag }));
@@ -59,7 +68,7 @@ const UpdateArticle = () => {
             <div className="md:w-1/2">
               <input
                 type="text"
-                {...register("title", { required: true })}
+                {...register("title")}
                 defaultValue={title}
                 placeholder="Title"
                 className="input input-bordered border-2 border-main-blue-300 rounded-lg w-full "
@@ -68,7 +77,7 @@ const UpdateArticle = () => {
 
             <div className="md:w-1/2">
               <select
-                {...register("publisher", { required: true })}
+                {...register("publisher")}
                 defaultValue={publisher}
                 className="select select-bordered border-2 border-main-blue-300 rounded-lg w-full ">
                 <option disabled defaultValue>
@@ -88,13 +97,13 @@ const UpdateArticle = () => {
           <div className="md:flex mt-4 gap-5 ">
             <div className="md:w-full">
               <Select
-                {...register("hashtags", { required: true })}
-                defaultValue={transformedTags}
+                {...register("hashtags")}
+                defaultValue={transformedTags.map((tag) => tag)}
                 isMulti
-                // name="colors"
                 onChange={(selectedOptions) => {
                   setValue("hashtags", selectedOptions);
                 }}
+                // onChange={(e)=> }
                 options={tagsData}
                 className=" border-2  border-main-blue-300 rounded-lg"
                 classNamePrefix="select"
@@ -108,7 +117,7 @@ const UpdateArticle = () => {
               <textarea
                 placeholder="Description"
                 className="input py-2 h-40 input-bordered w-full border-2 border-main-blue-300 rounded-lg"
-                {...register("description", { required: true })}
+                {...register("description")}
                 defaultValue={description}
               />
             </div>
@@ -116,7 +125,7 @@ const UpdateArticle = () => {
           {/* Photo input */}
           <div className="mt-5">
             <input
-              {...register("image", { required: true })}
+              {...register("image")}
               type="file"
               className="file-input border-2  border-main-blue-300 rounded-lg w-full max-w-xs"
             />

@@ -17,9 +17,10 @@ const ArticlesDetails = () => {
         </div>
         <div>
           <p className="font-bold flex gap-3 text-lg">
-            {hashtags?.map((tag, idx) => (
+            {hashtags.map((tag) => tag)}
+            {/* {hashtags?.map((tag, idx) => (
               <p key={idx}>{tag}</p>
-            ))}
+            ))} */}
           </p>
         </div>
       </div>
