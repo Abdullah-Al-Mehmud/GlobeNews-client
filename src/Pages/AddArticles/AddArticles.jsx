@@ -49,7 +49,7 @@ const AddArticles = () => {
           hashtags: data.hashtags?.map((tag) => tag?.value),
           description: data.description,
           image: res?.data?.data?.display_url,
-          status: "active",
+          status: "pending",
           subscription: "local",
           authorName: user?.displayName,
           authorEmail: user?.email,
