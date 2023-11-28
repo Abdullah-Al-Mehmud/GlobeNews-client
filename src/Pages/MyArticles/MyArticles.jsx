@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Heading from "../../Components/Heading";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 
 const MyArticles = () => {
   const axiosPublic = useAxiosPublic();
+  const [message, setMessage] = useState("");
   const { user } = useContext(AuthContext);
   const { data: articles, refetch } = useQuery({
     queryKey: ["my-articles", user?.email],
@@ -18,6 +19,13 @@ const MyArticles = () => {
       return res.data;
     },
   });
+
+  // getting the feedback
+  const handleMessage = (id) => {
+    axiosPublic.get(`/feedback/${id}`).then((res) => {
+      setMessage(res.data.message);
+    });
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -58,16 +66,8 @@ const MyArticles = () => {
                 <th className="text-main-blue-50">Title</th>
                 <th className="text-main-blue-50">Details</th>
                 <th className="text-main-blue-50">Status</th>
-                {articles?.map((item, idx) =>
-                  item?.status === "declined" ? (
-                    <th key={idx} className={`text-main-blue-50`}>
-                      Admin Message
-                    </th>
-                  ) : (
-                    ""
-                  )
-                )}
                 <th className="text-main-blue-50">isPremium</th>
+
                 <th className="text-main-blue-50">Edit</th>
               </tr>
             </thead>
@@ -87,26 +87,49 @@ const MyArticles = () => {
                   <td>{item?.title}</td>
                   <td>
                     <Link to={`/allArticles/${item?._id}`}>
-                      <button className="px-5 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd] ">
+                      <button className="px-6 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd] ">
                         Details
                       </button>
                     </Link>
                   </td>
 
-                  <td>
-                    <p> {item?.status}</p>
-                  </td>
+                  <div className="flex gap-10 pt-5">
+                    <div> {item?.status}</div>
+                    <div>
+                      {item?.status === "decline" ? (
+                        <td>
+                          <a
+                            onClick={() => handleMessage(item?._id)}
+                            href="#my_modal_8"
+                            className="font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]">
+                            See Message
+                          </a>
+                          {/* Put this part before </body> tag */}
+                          <div className="modal" role="dialog" id="my_modal_8">
+                            <div className="modal-box">
+                              <h3 className="font-bold text-main-blue-950 text-lg">
+                                {message}
+                              </h3>
 
-                  {item?.status === "declined" ? (
-                    <td>
-                      <button className="px-5 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd] ">
-                        Declined Message
-                      </button>
-                    </td>
-                  ) : (
-                    ""
-                  )}
-
+                              <div className="modal-action">
+                                <a href="#" className="btn">
+                                  Close
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      ) : (
+                        ""
+                      )}
+                      {/* <a
+                        onClick={() => handleMessage(item?._id)}
+                        href="#my_modal_8"
+                        className="font-bold py-3 mt-10 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]">
+                        open modal
+                      </a> */}
+                    </div>
+                  </div>
                   <td>{item?.subscription === "premium" ? "Yes" : "No"}</td>
                   <th>
                     <label>

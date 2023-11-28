@@ -3,8 +3,10 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import moment from "moment/moment";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const AllArticlesAdmin = () => {
+  const [message, setMessage] = useState("");
   const axiosSecure = useAxiosSecure();
   const { data: articles = [], refetch } = useQuery({
     queryKey: ["articles"],
@@ -70,14 +72,41 @@ const AllArticlesAdmin = () => {
     });
   };
 
-  const handleSendReason = (id) => {
-    e.preventDefault();
+  // const { register, handleSubmit } = useForm();
+  // const onSubmit = (data) => {
+  //   console.log(data);
+  //   const message = {
+  //     reason: data.reason,
+  //   };
+  //   console.log(message);
+  // };
+
+  const handleMessage = (id) => {
+    // console.log(id, message);
+    const feedback = { message };
+    console.log(id, feedback);
+    axiosSecure.post(`/feedback/${id}`, feedback).then((res) => {
+      if (res.data.success) {
+        refetch();
+        Swal.fire({
+          position: "top-right",
+          icon: "success",
+          title: "Message Send",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        axiosSecure.patch(`/articles/admin/decline/${id}`).then((res) => {
+          console.log(res.data);
+          refetch();
+        });
+      }
+    });
   };
 
   return (
     <div>
       <div className="overflow-x-auto">
-        <table className="table bg-[#160938] text-main-blue-50">
+        <table className="table bg-[#442397] text-main-blue-50">
           {/* head */}
           <thead>
             <tr>
@@ -176,18 +205,21 @@ const AllArticlesAdmin = () => {
                         <h3 className="font-bold text-main-blue-950 text-lg">
                           Reason for Decline
                         </h3>
-                        <form onSubmit={() => handleSendReason(article?._id)}>
-                          <input
-                            type="text"
-                            // {...register("title", { required: true })}
-                            name="reason"
-                            placeholder="Reason...."
-                            className="input mt-4 input-bordered border-2 text-main-blue-950 border-main-blue-300 rounded-lg w-full "
-                          />
-                          <button className=" px-6 mt-5 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#e75050] to-[#dd3333]">
-                            Send
-                          </button>
-                        </form>
+
+                        <input
+                          type="text"
+                          // {...register("reason", { required: true })}
+                          name="reason"
+                          onChange={(e) => setMessage(e.target.value)}
+                          placeholder="Reason...."
+                          className="input mt-4 input-bordered border-2 text-main-blue-950 border-main-blue-300 rounded-lg w-full "
+                        />
+                        <button
+                          // type="submit"
+                          onClick={() => handleMessage(article?._id)}
+                          className=" px-6 mt-5 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#e75050] to-[#dd3333]">
+                          Send
+                        </button>
 
                         <p className="py-4 text-main-blue-950">
                           Press ESC key or click outside to close

@@ -4,8 +4,10 @@ import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
   const [show, setShow] = useState(true);
   const { createUser, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -27,17 +29,28 @@ const Register = () => {
     createUser(email, password)
       .then((res) => {
         console.log(res.user);
-        updateUser(name, image).then().catch();
-        //TODO: i have to send the user data to database along with isPremium
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Registered Successfully",
-          showConfirmButton: false,
-          timer: 1500,
+        const userInfo = {
+          name,
+          email,
+          image,
+          role: "user",
+          isPremium: "no",
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data.success) {
+            updateUser(name, image).then().catch();
+            //TODO: i have to send the user data to database along with isPremium
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Registered Successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            reset();
+            navigate("/");
+          }
         });
-        reset();
-        navigate("/");
       })
       .catch((err) => console.log(err));
   };

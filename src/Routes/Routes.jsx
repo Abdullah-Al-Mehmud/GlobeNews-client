@@ -14,6 +14,7 @@ import UpdateArticle from "../Pages/MyArticles/UpdateArticle";
 import PremiumArticles from "../Pages/PremiumArticles/PremiumArticles";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import AllArticlesAdmin from "../Pages/DashboardPage/AllArticles/AllArticlesAdmin";
+import AllUsers from "../Pages/DashboardPage/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path: "allArticles",
         element: <AllArticlesAdmin></AllArticlesAdmin>,
+      },
+      {
+        path: "allUsers",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },
