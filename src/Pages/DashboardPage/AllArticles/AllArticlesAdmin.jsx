@@ -106,7 +106,7 @@ const AllArticlesAdmin = () => {
   return (
     <div>
       <div className="overflow-x-auto">
-        <table className="table bg-[#442397] text-main-blue-50">
+        <table className="table bg-[#250f5e] text-main-blue-50">
           {/* head */}
           <thead>
             <tr>

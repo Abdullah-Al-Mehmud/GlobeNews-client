@@ -33,6 +33,12 @@ const Dashboard = () => {
               Add Publisher
             </NavLink>
           </li>
+          <div className="divider"></div>
+          <li>
+            <NavLink className=" font-bold " to="/">
+              Home Page
+            </NavLink>
+          </li>
         </ul>
       </div>
       <div className="flex-1 bg-main-blue-100">

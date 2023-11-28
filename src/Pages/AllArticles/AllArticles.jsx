@@ -67,7 +67,7 @@ const AllArticles = () => {
           Search
         </button>
       </form>
-      <div>
+      {/* <div>
         <div className="w-80">
           <select
             onChange={(e) => setTags(e.target.value)}
@@ -83,7 +83,7 @@ const AllArticles = () => {
             ))}
           </select>
         </div>
-      </div>
+      </div> */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 max-w-7xl lg:px-0 px-10 mx-auto">
         {articles?.map((item, idx) => (
           <div

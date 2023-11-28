@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -71,6 +72,15 @@ const AddArticles = () => {
           });
       });
   };
+
+  const { data: publishers = [] } = useQuery({
+    queryKey: ["publishers"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/publishers");
+      return res.data;
+    },
+  });
+
   return (
     <div className="md:flex justify-center px-10 items-center ">
       {/* img */}
@@ -97,13 +107,9 @@ const AddArticles = () => {
                 <option disabled defaultValue>
                   Choose Publisher
                 </option>
-                <option>Business Insights</option>
-                <option>Green Horizon</option>
-                <option>Political Spectrum</option>
-                <option>Healthy Living</option>
-                <option>Scientific Endeavors</option>
-                <option>Global Insight</option>
-                <option>Sports Chronicles</option>
+                {publishers?.map((publisher) => (
+                  <option key={publisher?._id}>{publisher?.name}</option>
+                ))}
               </select>
             </div>
           </div>
