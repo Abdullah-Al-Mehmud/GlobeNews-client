@@ -7,7 +7,10 @@ const AdminHome = () => {
     <div>
       <PieChart></PieChart>
       <div className="flex">
-        <div className="w-full"> {/* <BarChart></BarChart>{" "} */}</div>
+        <div className="w-full">
+          {" "}
+          <BarChart></BarChart>{" "}
+        </div>
         <div>
           {" "}
           <LineChart></LineChart>{" "}
