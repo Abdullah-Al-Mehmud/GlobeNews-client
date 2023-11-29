@@ -122,12 +122,6 @@ const MyArticles = () => {
                       ) : (
                         ""
                       )}
-                      {/* <a
-                        onClick={() => handleMessage(item?._id)}
-                        href="#my_modal_8"
-                        className="font-bold py-3 mt-10 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]">
-                        open modal
-                      </a> */}
                     </div>
                   </div>
                   <td>{item?.subscription === "premium" ? "Yes" : "No"}</td>

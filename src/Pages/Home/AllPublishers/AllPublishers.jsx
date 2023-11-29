@@ -20,7 +20,7 @@ const AllPublishers = () => {
         {publishers?.map((publisher) => (
           <div
             key={publisher?._id}
-            className="card rounded-2xl bg-[#160938] text-main-blue-50 shadow-xl">
+            className="card rounded-2xl bg-main-blue-950 text-main-blue-50 shadow-xl">
             <figure className="px-10 pt-10">
               <img
                 src={publisher?.image}

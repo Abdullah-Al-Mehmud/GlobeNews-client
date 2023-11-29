@@ -3,9 +3,14 @@ import Button from "../../Components/Button";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import defaultProfile from "../../assets/images/user.png";
+import useAdmin from "../../Hooks/useAdmin";
+import usePremium from "../../Hooks/usePremium";
 
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
+  const [isPremium] = usePremium();
+
   const links = (
     <>
       <li className="font-bold">
@@ -17,44 +22,51 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li className="font-bold">
-        <NavLink
-          to="/dashboard"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
-          }>
-          Dashboard
-        </NavLink>
-      </li>
-      {user ? (
-        <div className="lg:flex gap-5">
-          <li className="font-bold">
-            <NavLink
-              to="/addArticles"
-              className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-main-blue-500  " : ""
-              }>
-              Add Articles
-            </NavLink>
-          </li>
-          <li className="font-bold">
-            <NavLink
-              to="/allArticles"
-              className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-main-blue-500 " : ""
-              }>
-              All Articles
-            </NavLink>
-          </li>
-          <li className="font-bold">
-            <NavLink
-              to="/subscription"
-              className={({ isActive, isPending }) =>
-                isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
-              }>
-              Subscription
-            </NavLink>
-          </li>
+
+      {user && isAdmin ? (
+        <li className="font-bold">
+          <NavLink
+            to="/dashboard/adminHome"
+            className={({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
+            }>
+            Dashboard
+          </NavLink>
+        </li>
+      ) : (
+        ""
+      )}
+
+      <div className="lg:flex gap-5">
+        <li className="font-bold">
+          <NavLink
+            to="/addArticles"
+            className={({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "text-main-blue-500  " : ""
+            }>
+            Add Articles
+          </NavLink>
+        </li>
+        <li className="font-bold">
+          <NavLink
+            to="/allArticles"
+            className={({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "text-main-blue-500 " : ""
+            }>
+            All Articles
+          </NavLink>
+        </li>
+        <li className="font-bold">
+          <NavLink
+            to="/subscription"
+            className={({ isActive, isPending }) =>
+              isPending ? "pending" : isActive ? "text-main-blue-500   " : ""
+            }>
+            Subscription
+          </NavLink>
+        </li>
+
+        {user && isPremium ? (
           <li className="font-bold">
             <NavLink
               to="/premiumArticles"
@@ -64,6 +76,11 @@ const Navbar = () => {
               Premium Articles
             </NavLink>
           </li>
+        ) : (
+          ""
+        )}
+
+        {user ? (
           <li className="font-bold">
             <NavLink
               to="/myArticles"
@@ -73,10 +90,10 @@ const Navbar = () => {
               My Articles
             </NavLink>
           </li>
-        </div>
-      ) : (
-        ""
-      )}
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 

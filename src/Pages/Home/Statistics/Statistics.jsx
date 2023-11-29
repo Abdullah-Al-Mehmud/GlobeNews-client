@@ -13,14 +13,14 @@ const Statistics = () => {
     },
   });
 
-  const premiumUser = users.filter((user) => user?.isPremium === "yes");
+  const premiumUser = users.filter((user) => user?.isPremium === "premium");
   const normalUser = users.filter((user) => user?.isPremium === "no");
   return (
     <div>
       {/* react count up section for the user , premium user and the all users statics section  */}
       <Heading heading={`User Statics`}></Heading>
       <div className="max-w-5xl mx-auto">
-        <div className="flex gap-5 justify-center">
+        <div className="md:flex px-5 gap-5 justify-center">
           <div className="bg-[#9c6da7] rounded-2xl text-main-blue-50 px-20 py-5">
             <p className="font-bold text-3xl">
               All Users
