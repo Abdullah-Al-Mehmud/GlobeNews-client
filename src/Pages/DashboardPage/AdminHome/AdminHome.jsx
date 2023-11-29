@@ -6,8 +6,8 @@ const AdminHome = () => {
   return (
     <div>
       <PieChart></PieChart>
-      <div className="flex">
-        <div className="w-full">
+      <div className="flex justify-evenly">
+        <div className="">
           {" "}
           <BarChart></BarChart>{" "}
         </div>

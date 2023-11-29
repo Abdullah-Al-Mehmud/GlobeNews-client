@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import AllPublishers from "./AllPublishers/AllPublishers";
 import Statistics from "./Statistics/Statistics";
+import TrendingArticles from "./TrendingArticles/TrendingArticles";
+import Plans from "./Plans/Plans";
 
 const Home = () => {
   const [show, setShow] = useState(false);
@@ -15,6 +17,7 @@ const Home = () => {
   }, []);
   return (
     <div>
+      <TrendingArticles></TrendingArticles>
       <Statistics></Statistics>
       <AllPublishers></AllPublishers>
 
@@ -28,6 +31,8 @@ const Home = () => {
       ) : (
         ""
       )}
+
+      <Plans></Plans>
     </div>
   );
 };

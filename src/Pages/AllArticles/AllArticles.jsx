@@ -1,6 +1,5 @@
 // import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "../../Components/Button";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import Heading from "../../Components/Heading";
@@ -47,6 +46,15 @@ const AllArticles = () => {
   //     .then((res) => res.json())
   //     .then((data) => console.log(data));
   // };
+
+  const handleViewCount = (id) => {
+    axiosPublic
+      .patch(`/articles/viewCount/${id}`)
+      .then(() => {
+        refetch();
+      })
+      .catch();
+  };
 
   return (
     <div>
@@ -147,7 +155,11 @@ const AllArticles = () => {
 
               <div className="card-actions mt-5 justify-center">
                 <Link to={`/allArticles/${item?._id}`}>
-                  <Button title={`Details`}></Button>
+                  <button
+                    onClick={() => handleViewCount(item?._id)}
+                    className="px-7 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]  ">
+                    Details
+                  </button>
                 </Link>
               </div>
             </div>

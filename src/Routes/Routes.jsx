@@ -17,6 +17,7 @@ import AllArticlesAdmin from "../Pages/DashboardPage/AllArticles/AllArticlesAdmi
 import AllUsers from "../Pages/DashboardPage/AllUsers/AllUsers";
 import AddPublisher from "../Pages/DashboardPage/AddPublisher/AddPublisher";
 import AdminHome from "../Pages/DashboardPage/AdminHome/AdminHome";
+import Subscription from "../Pages/Subscription/Subscription";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             <AddArticles></AddArticles>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/subscription",
+        element: <Subscription></Subscription>,
       },
       {
         path: "/allArticles",

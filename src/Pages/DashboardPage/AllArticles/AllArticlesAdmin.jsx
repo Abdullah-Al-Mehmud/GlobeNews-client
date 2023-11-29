@@ -118,6 +118,7 @@ const AllArticlesAdmin = () => {
                   />
                 </label>
               </th>
+              <th className="text-main-blue-50">Serial no</th>
               <th className="text-main-blue-50">Author</th>
               <th className="text-main-blue-50">Title</th>
               <th className="text-main-blue-50">Posted Date</th>
@@ -131,7 +132,7 @@ const AllArticlesAdmin = () => {
           <tbody>
             {/* row 1 */}
 
-            {articles?.map((article) => {
+            {articles?.map((article, idx) => {
               const formattedDate = moment(article?.postedDate).format(
                 "MM/DD/YYYY"
               );
@@ -144,6 +145,7 @@ const AllArticlesAdmin = () => {
                       className="text-[#ff3131] cursor-pointer"
                     />
                   </th>
+                  <th>{idx + 1}</th>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">

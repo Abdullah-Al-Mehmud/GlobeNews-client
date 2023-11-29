@@ -100,8 +100,8 @@ const AllUsers = () => {
                   {user?.role === "user" ? (
                     <button
                       onClick={() => handleMakeAdmin(user?._id)}
-                      className="w-20 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]">
-                      User
+                      className="px-5 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]">
+                      Make Admin
                     </button>
                   ) : (
                     ""

@@ -52,6 +52,7 @@ const AddArticles = () => {
           image: res?.data?.data?.display_url,
           status: "pending",
           subscription: "local",
+          viewCount: 0,
           authorName: user?.displayName,
           authorEmail: user?.email,
           authorImage: user?.photoURL,

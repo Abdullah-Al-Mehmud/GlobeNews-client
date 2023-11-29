@@ -16,7 +16,7 @@ const Statistics = () => {
   const premiumUser = users.filter((user) => user?.isPremium === "premium");
   const normalUser = users.filter((user) => user?.isPremium === "no");
   return (
-    <div>
+    <div className="my-10">
       {/* react count up section for the user , premium user and the all users statics section  */}
       <Heading heading={`User Statics`}></Heading>
       <div className="max-w-5xl mx-auto">

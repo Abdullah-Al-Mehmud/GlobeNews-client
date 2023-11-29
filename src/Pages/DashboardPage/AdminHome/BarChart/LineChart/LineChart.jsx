@@ -33,11 +33,11 @@ const LineChart = () => {
   );
   return (
     <Chart
-      chartType="LineChart"
+      chartType="AreaChart"
       loader={<div>Loading Chart</div>}
       data={chartData}
       options={{
-        title: "LineChart",
+        title: "AreaChart",
         is3D: true,
         titleTextStyle: {
           fontSize: 32,
