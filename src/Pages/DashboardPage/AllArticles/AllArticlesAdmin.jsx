@@ -72,15 +72,6 @@ const AllArticlesAdmin = () => {
     });
   };
 
-  // const { register, handleSubmit } = useForm();
-  // const onSubmit = (data) => {
-  //   console.log(data);
-  //   const message = {
-  //     reason: data.reason,
-  //   };
-  //   console.log(message);
-  // };
-
   const handleMessage = (id) => {
     // console.log(id, message);
     const feedback = { message };

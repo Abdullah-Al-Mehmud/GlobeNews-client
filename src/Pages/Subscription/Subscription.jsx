@@ -98,12 +98,8 @@ const Subscription = () => {
                     <span className="text-lg text-main-blue-950">$100 </span>
                   </option>
                   <option value="1week">
-                    1 Week{" "}
+                    10 Days{" "}
                     <span className="text-lg text-main-blue-950">$500 </span>
-                  </option>
-                  <option value="1month">
-                    1 Month{" "}
-                    <span className="text-lg text-main-blue-950">$1000 </span>
                   </option>
                 </select>
                 <button

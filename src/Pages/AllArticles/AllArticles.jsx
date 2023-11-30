@@ -4,7 +4,8 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import Heading from "../../Components/Heading";
 import premiumImg from "../../assets/images/premium.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const AllArticles = () => {
   const tagsData = [
@@ -20,20 +21,30 @@ const AllArticles = () => {
     { value: "Sports", label: "#Sports" },
   ];
   const [search, setSearch] = useState("");
-  const [tags, setTags] = useState("");
+  // const [tags, setTags] = useState("");
+  const { user } = useContext(AuthContext);
 
   const axiosPublic = useAxiosPublic();
   const { data: articles = [], refetch } = useQuery({
     queryKey: ["articles"],
     queryFn: async () => {
-      console.log("30", tags);
-      const res = await axiosPublic.get(
-        `/articles?search=${search}&tags=${tags}`
-      );
+      const res = await axiosPublic.get(`/articles?search=${search}`);
+      return res.data;
+    },
+  });
+  console.log(articles?.map((article) => article?.subscription));
+
+  const { data: allUsers = [] } = useQuery({
+    queryKey: ["premiumUser"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/users");
       return res.data;
     },
   });
 
+  const loggedInUser = allUsers?.find((User) => User?.email === user?.email);
+
+  console.log("43", loggedInUser);
   // console.log(articles);
 
   const handleSearch = (e) => {
@@ -41,11 +52,6 @@ const AllArticles = () => {
 
     refetch();
   };
-  // const handleChange = (e) => {
-  //   fetch(`http://localhost:3000/articles?tags=Politics`)
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data));
-  // };
 
   const handleViewCount = (id) => {
     axiosPublic
@@ -75,23 +81,7 @@ const AllArticles = () => {
           Search
         </button>
       </form>
-      {/* <div>
-        <div className="w-80">
-          <select
-            onChange={(e) => setTags(e.target.value)}
-            value={tags}
-            className="select select-bordered border-2 border-main-blue-300 rounded-lg w-full ">
-            <option disabled defaultValue>
-              Choose Publisher
-            </option>
-            {tagsData?.map((item, idx) => (
-              <option key={idx} value={item?.value}>
-                {item?.value}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div> */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-10 max-w-7xl lg:px-0 px-10 mx-auto">
         {articles?.map((item, idx) => (
           <div
@@ -154,13 +144,27 @@ const AllArticles = () => {
               </span>
 
               <div className="card-actions mt-5 justify-center">
-                <Link to={`/allArticles/${item?._id}`}>
-                  <button
-                    onClick={() => handleViewCount(item?._id)}
-                    className="px-7 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]  ">
-                    Details
-                  </button>
-                </Link>
+                {item?.subscription === "premium" &&
+                !loggedInUser?.premiumTaken ? (
+                  <Link to={`/allArticles/${item?._id}`}>
+                    <button
+                      disabled
+                      onClick={() => handleViewCount(item?._id)}
+                      className={`  
+                    px-7 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#979899] to-[#9094a0]  `}>
+                      Details
+                    </button>
+                  </Link>
+                ) : (
+                  <Link to={`/allArticles/${item?._id}`}>
+                    <button
+                      onClick={() => handleViewCount(item?._id)}
+                      className={`  
+                    px-7 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#6ba5ef] to-[#3367dd]  `}>
+                      Details
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
