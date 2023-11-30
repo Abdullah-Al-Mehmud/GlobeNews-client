@@ -58,7 +58,7 @@ const AddArticles = () => {
           authorImage: user?.photoURL,
         };
         axios
-          .post("http://localhost:3000/articles", articles)
+          .post("https://globe-news-server.vercel.app/articles", articles)
           .then((result) => {
             if (result.data.success) {
               Swal.fire({

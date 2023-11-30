@@ -38,7 +38,7 @@ const Subscription = () => {
         return;
     }
 
-    fetch(`http://localhost:3000/users/${logedinUser?._id}`, {
+    fetch(`https://globe-news-server.vercel.app/users/${logedinUser?._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const Subscription = () => {
       });
   };
   useEffect(() => {
-    fetch("http://localhost:3000/users")
+    fetch("https://globe-news-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setAllUsers(data));
   }, []);

@@ -3,6 +3,7 @@ import AllPublishers from "./AllPublishers/AllPublishers";
 import Statistics from "./Statistics/Statistics";
 import TrendingArticles from "./TrendingArticles/TrendingArticles";
 import Plans from "./Plans/Plans";
+import HeroSection from "./HeroSection/HeroSection";
 
 const Home = () => {
   // const [show, setShow] = useState(false);
@@ -17,6 +18,7 @@ const Home = () => {
   // }, []);
   return (
     <div>
+      <HeroSection></HeroSection>
       <TrendingArticles></TrendingArticles>
       <Statistics></Statistics>
       <AllPublishers></AllPublishers>

@@ -3,7 +3,8 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import moment from "moment/moment";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const AllArticlesAdmin = () => {
   const [message, setMessage] = useState("");
@@ -186,13 +187,18 @@ const AllArticlesAdmin = () => {
                     )}
                   </td>
                   <th>
-                    <button
-                      className=" w-20 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#e75050] to-[#dd3333]"
-                      onClick={() =>
-                        document.getElementById(article?._id).showModal()
-                      }>
-                      Declined
-                    </button>
+                    {article?.status === "decline" ? (
+                      "Declined"
+                    ) : (
+                      <button
+                        className=" w-20 font-bold py-3 rounded-lg text-main-blue-50 bg-gradient-to-r from-[#e75050] to-[#dd3333]"
+                        onClick={() =>
+                          document.getElementById(article?._id).showModal()
+                        }>
+                        Declined
+                      </button>
+                    )}
+
                     <dialog id={article?._id} className="modal">
                       <div className="modal-box">
                         <h3 className="font-bold text-main-blue-950 text-lg">

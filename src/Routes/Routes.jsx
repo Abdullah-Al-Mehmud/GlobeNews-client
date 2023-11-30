@@ -53,7 +53,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/articles/${params.id}`),
+          fetch(`https://globe-news-server.vercel.app/articles/${params.id}`),
       },
       {
         path: "/myArticles",
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/articles/${params.id}`),
+          fetch(`https://globe-news-server.vercel.app/articles/${params.id}`),
       },
       {
         path: "/premiumArticles",

@@ -46,7 +46,12 @@ const TrendingArticles = () => {
                   </figure>
                   <div className="card-body">
                     <h2 className="card-title text-lg">{article?.title}</h2>
-                    <p>{article?.description}</p>
+                    <p>
+                      {article?.description.length > 50
+                        ? article?.description.slice(0, 50)
+                        : article?.description}
+                      ......
+                    </p>
                     <p>{article?.publisher}</p>
                     <p className="">
                       {article?.hashtags?.map((tag, idx) => (

@@ -13,7 +13,7 @@ const Statistics = () => {
     },
   });
 
-  const premiumUser = users.filter((user) => user?.isPremium === "premium");
+  const premiumUser = users.filter((user) => user?.premiumTaken);
   const normalUser = users.filter((user) => user?.isPremium === "no");
   return (
     <div className="my-10">

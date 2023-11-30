@@ -5,11 +5,24 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import defaultProfile from "../../assets/images/user.png";
 import useAdmin from "../../Hooks/useAdmin";
 import usePremium from "../../Hooks/usePremium";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Navbar = () => {
+  const axiosPublic = useAxiosPublic();
   const { user, logOutUser } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
   const [isPremium] = usePremium();
+
+  const { data: allUsers = [] } = useQuery({
+    queryKey: ["premiumUser"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/users");
+      return res.data;
+    },
+  });
+
+  const loggedInUser = allUsers?.find((User) => User?.email === user?.email);
 
   const links = (
     <>
@@ -66,7 +79,7 @@ const Navbar = () => {
           </NavLink>
         </li>
 
-        {user && isPremium ? (
+        {user && loggedInUser?.premiumTaken ? (
           <li className="font-bold">
             <NavLink
               to="/premiumArticles"
