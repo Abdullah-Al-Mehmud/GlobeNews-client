@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import subscriptionImg from "../../assets/images/subscription.png";
 import Heading from "../../Components/Heading";
+import { useNavigate } from "react-router-dom";
 
 const Subscription = () => {
+  const navigate = useNavigate();
   const [allUsers, setAllUsers] = useState([]);
   const { user } = useContext(AuthContext);
   console.log(user);
@@ -53,7 +55,7 @@ const Subscription = () => {
       .then((data) => {
         console.log(data);
 
-        // navigate("/payment");
+        navigate("/payment");
       })
       .catch((error) => {
         console.error("Error subscribing:", error);
