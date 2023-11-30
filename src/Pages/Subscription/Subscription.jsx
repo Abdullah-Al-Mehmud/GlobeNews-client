@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import subscriptionImg from "../../assets/images/subscription.png";
+import Heading from "../../Components/Heading";
 
 const Subscription = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -64,20 +66,13 @@ const Subscription = () => {
   }, []);
   return (
     <div>
-      <img src="https://i.ibb.co/HVQ91PM/4953844.jpg" alt="" />
-      <h1 className="text-center text-black font-bold   text-5xl uppercase pt-10">
-        special offer is Going on
-      </h1>
-      <h1 className="text-2xl text-red-500 text-center font-bold uppercase pt-5 pb-20">
-        ---Grab it now---
-      </h1>
+      <Heading heading={`Subscription`}></Heading>
+      <div className="flex justify-center">
+        <img className="h-96 w-fit" src={subscriptionImg} alt="" />
+      </div>
 
-      <div className="rounded-xl">
-        <div
-          className="hero h-[200px] rounded-xl"
-          style={{
-            backgroundImage: "url(https://i.ibb.co/LrXGYft/7701.jpg)",
-          }}>
+      <div className="rounded-xl mt-10">
+        <div className="hero h-[200px] rounded-xl">
           <div className="hero-overlay bg-opacity-60"></div>
           <div className="hero-content text-center text-neutral-content rounded-xl">
             <div className="">

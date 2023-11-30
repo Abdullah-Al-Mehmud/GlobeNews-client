@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import AllPublishers from "./AllPublishers/AllPublishers";
 import Statistics from "./Statistics/Statistics";
 import TrendingArticles from "./TrendingArticles/TrendingArticles";
 import Plans from "./Plans/Plans";
 import HeroSection from "./HeroSection/HeroSection";
+import Testimonial from "./Testimonial/Testimonial";
 
 const Home = () => {
   // const [show, setShow] = useState(false);
@@ -35,6 +35,7 @@ const Home = () => {
       )} */}
 
       <Plans></Plans>
+      <Testimonial></Testimonial>
     </div>
   );
 };

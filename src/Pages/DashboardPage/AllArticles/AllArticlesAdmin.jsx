@@ -3,8 +3,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import moment from "moment/moment";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../../Provider/AuthProvider";
+import { useState } from "react";
 
 const AllArticlesAdmin = () => {
   const [message, setMessage] = useState("");

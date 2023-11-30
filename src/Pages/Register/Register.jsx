@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
+  const [error, setError] = useState("");
   const axiosPublic = useAxiosPublic();
   const [show, setShow] = useState(true);
   const { createUser, updateUser } = useContext(AuthContext);
@@ -52,7 +53,7 @@ const Register = () => {
           }
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err));
   };
   return (
     <div className=" bg-[#160938] py-20 flex h-auto items-center">
@@ -172,17 +173,6 @@ const Register = () => {
                     {errors.password.message}
                   </span>
                 )}
-                {/* {errors.password?.type === "minLength" && (
-                  <span className="text-[#f70909] font-bold mt-2">
-                    {errors.password.message}
-                  </span>
-                )} */}
-
-                {/* {errors.password?.type === "minLength" && (
-                  <span className="text-[#f70909] font-bold mt-2">
-                    Password Must be 6 characters or above
-                  </span>
-                )} */}
               </div>
 
               <button
@@ -191,14 +181,13 @@ const Register = () => {
                 Register account
               </button>
               <div>
-                {/* {error ? <p className="font-bold text-red-600">{error}</p> : ""} */}
+                {error ? (
+                  <p className="font-bold text-[#ff2b2b]">{error}</p>
+                ) : (
+                  ""
+                )}
               </div>
-              {/* google login */}
-              <div>
-                {/* <p className="text-center text-main-blue-950 font-bold">
-                  
-                </p> */}
-              </div>
+
               <div className="text-sm font-bold text-gray-500 dark:text-gray-300">
                 Already have an account?{" "}
                 <Link
